@@ -1,13 +1,17 @@
-const express = require("express");
-const router = express.Router();
 
-router.use("/",(req, res, next) => {
+
+exports.get404 = (req, res, next) => {
     res.status(404).render('404', { pageTitle: 'Page Not Found',
     path:"/",
     isAuthenticated: req.isLoggedIn,
  });
-});
+}
 
-exports.get404 = router;
+exports.get500 = (req, res, next) => {
+    res.status(500).render('500', { pageTitle: '500 error',
+    path:"/500",
+    isAuthenticated: req.isLoggedIn,
+ });
+}
   
   

@@ -7,23 +7,28 @@
    <%- include('../includes/navigation.ejs') %>
 
     <main>
-        <form class="product-form" action="/signup" method="POST">
+        <% if (errorMessage) { %>  
+            <div class="user-message user-message--error"><%= errorMessage %></div>    
+        <% } %>
+        <form class="product-form" action="/signup" method="POST" novalidate>
             <div class="form-control">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" placeholder="enter your email">
+                <input class="<%= validateError.find(e=> e.param === 'email') ? 'invalid' : '' %>" type="email" name="email" id="email" value="<%= oldInput.email %>">
             </div>
             <div class="form-control">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="enter password">
+                <input class="<%= validateError.find(e=> e.param === 'password') ? 'invalid' : '' %>" type="password" name="password" id="password" value="<%= oldInput.password %>">
             </div>
             <div class="form-control">
-                <label for="password"> Confrm Password</label>
-                <input type="password" name="confrmPassword" id="password" placeholder="enter password">
+                <label for="password"> Confirm Password</label>
+                <input class="<%= validateError.find(e=> e.param === 'confirmPassword') ? 'invalid' : '' %>" type="password" name="confirmPassword" id="password" value="<%= oldInput.confirmPassword %>">
             </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">
                 Create Account
             </button>
         </form>
+        <br>
+        
     </main>
 <%- include('../includes/end.ejs') %>
